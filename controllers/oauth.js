@@ -20,7 +20,7 @@ function spotify(req, res, next) {
         url: 'https://accounts.spotify.com/authorize',
         qs: token,
         headers: {
-          'User-Agent': 'Request-Promise'
+          'Authorization': `Bearer ${token}`
         },
         json: true
       });
