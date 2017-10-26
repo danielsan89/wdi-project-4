@@ -5,4 +5,4 @@ const artistSchema = new mongoose.Schema({
   name: { type: String }
 });
 
-module.exports = mongoose.model('User', artistSchema);
+module.exports = mongoose.model('Artist', artistSchema);

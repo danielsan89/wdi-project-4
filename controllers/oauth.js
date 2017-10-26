@@ -3,42 +3,51 @@ const jwt = require('jsonwebtoken');
 const { secret } = require('../config/environment');
 const User = require('../models/user');
 
+let refreshToken = null;
+
 function spotify(req, res, next) {
   return rp({
     method: 'POST',
     url: 'https://accounts.spotify.com/api/token',
-    qs: {
+    form: {
+      redirect_uri: 'http://localhost:8000/',
+      grant_type: 'authorization_code',
       client_id: process.env.SPOTIFY_CLIENT_ID,
       client_secret: process.env.SPOTIFY_CLIENT_SECRET,
       code: req.body.code
     },
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
     json: true
   })
     .then(token => {
+      console.log(token);
+      refreshToken = token.refresh_token;
+
       return rp({
         method: 'GET',
-        url: 'https://accounts.spotify.com/authorize',
-        qs: token,
+        url: 'https://api.spotify.com/v1/me',
         headers: {
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token.access_token}`
         },
         json: true
       });
     })
     .then(profile => {
+      console.log(profile);
       return User
         .findOne({ $or: [{ spotifyId: profile.id }, { email: profile.email }] })
         .then((user) => {
           if(!user) {
             user = new User({
-              username: profile.login,
-              email: profile.email,
-              image: profile.avatar_url
+              username: profile.display_name,
+              email: profile.email
             });
           }
 
           user.spotifyId = profile.id;
-          if(profile.email) user.email = profile.email;
+          if(profile.images.length) user.image = profile.images[0].url;
           return user.save();
         });
     })
@@ -46,7 +55,7 @@ function spotify(req, res, next) {
       const payload = { userId: user.id };
       const token = jwt.sign(payload, secret, { expiresIn: '1hr' });
 
-      res.json({ message: `Welcome ${user.username}!`, token });
+      res.json({ message: `Welcome ${user.username}!`, token, refreshToken });
     })
     .catch(next);
 }

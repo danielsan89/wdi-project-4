@@ -5,8 +5,8 @@ const oauth  = require('../controllers/oauth');
 // const secureRoute = require('../lib/secureRoute');
 
 router.route('/artists')
-  .get(artists.index)
-  .post(artists.create);
+  .get(artists.index);
+//   .post(artists.create);
 // .post(secureRoute, artists.create);
 
 // router.route('/artists/:id')
