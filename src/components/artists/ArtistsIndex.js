@@ -1,30 +1,41 @@
 import React from 'react';
 import Axios from 'axios';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 //
 import Auth from '../../lib/Auth';
 import OAuthButton from '../auth/OAuthButton';
 
 class ArtistsIndex extends React.Component {
+
   state = {
     artists: []
   }
 
   componentWillMount() {
-    console.log(Auth.getRefreshToken());
+    // console.log(Auth.getRefreshToken());
     Axios
-      .get('https://api.spotify.com/v1/me/following', {
-        headers: { Authorization: `Bearer ${Auth.getRefreshToken()}` }
-
+      .get(`/api/spotify/following?token=${Auth.getRefreshToken()}`) // Axios request to the the back-end API
+      .then((res) => {
+        this.setState({ artists: res.data.artists.items });
+        console.log(res.data.artists.items);
       })
-      .then((res) => console.log(res))
       .catch(err => console.log(err));
   }
 
   render() {
     return (
       <main>
-        <h1>Artists!</h1>
+        <h1>My Artists!</h1>
+        {this.state.artists.map(artist => {
+          return(
+            <div key={artist.id}>
+
+              <img src={artist.images[1].url}/>
+
+              <Link to={`/artists/${artist.name}`}><h3><strong>{artist.name}</strong></h3></Link>
+            </div>
+          );
+        })}
         <OAuthButton provider="spotify">Spotify</OAuthButton>
       </main>
 

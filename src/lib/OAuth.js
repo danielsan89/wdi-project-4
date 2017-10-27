@@ -7,7 +7,7 @@ class OAuth {
     name: 'spotify',
     url: '/api/oauth/spotify',
     authEndpoint: 'https://accounts.spotify.com/authorize',
-    scope: 'user-read-email',
+    scope: ['user-read-private user-read-email user-follow-read user-follow-modify playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private user-modify-playback-state'],
     clientId: 'be0c644bd7d943b5a8727fd2c6df7883' // paste your Client ID here
   }];
 

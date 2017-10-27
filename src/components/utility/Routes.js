@@ -1,14 +1,16 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import ArtistsIndex from '../artists/ArtistsIndex';
+import ArtistsShow from '../artists/ArtistsShow';
 
 
 const Routes = () => {
   return (
-
-    <Route exact path="/" component={ArtistsIndex} />
-
+    <Switch>
+      <Route exact path="/artists" component={ArtistsIndex} />
+      <Route exact path="/artists/:name" component={ArtistsShow} />
+    </Switch>
   );
 };
 

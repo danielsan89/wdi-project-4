@@ -2,15 +2,16 @@ const router = require('express').Router();
 const artists  = require('../controllers/artists');
 // const auth  = require('../controllers/auth');
 const oauth  = require('../controllers/oauth');
+const spotify  = require('../controllers/spotify');
 // const secureRoute = require('../lib/secureRoute');
 
-router.route('/artists')
+router.route('/')
   .get(artists.index);
 //   .post(artists.create);
 // .post(secureRoute, artists.create);
 
-// router.route('/artists/:id')
-//   .get(artists.show)
+// router.route('/artists')
+//   .get(artists.show);
 //   .put(secureRoute, artists.update)
 //   .delete(secureRoute, artists.delete);
 //
@@ -25,6 +26,12 @@ router.route('/artists')
 
 router.route('/oauth/spotify')
   .post(oauth.spotify);
+
+router.route('/spotify/following')
+  .get(spotify.getFollowing);
+
+// router.route('/spotify/gigs')
+//   .get(spotify.getGigs);
 
 router.all('/*', (req, res) => res.notFound());
 
