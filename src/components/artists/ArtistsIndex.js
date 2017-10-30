@@ -12,7 +12,6 @@ class ArtistsIndex extends React.Component {
   }
 
   componentWillMount() {
-    // console.log(Auth.getRefreshToken());
     Axios
       .get(`/api/spotify/following?token=${Auth.getRefreshToken()}`) // Axios request to the the back-end API
       .then((res) => {
@@ -29,9 +28,7 @@ class ArtistsIndex extends React.Component {
         {this.state.artists.map(artist => {
           return(
             <div key={artist.id}>
-
               <img src={artist.images[1].url}/>
-
               <Link to={`/artists/${artist.name}`}><h3><strong>{artist.name}</strong></h3></Link>
             </div>
           );

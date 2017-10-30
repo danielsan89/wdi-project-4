@@ -2,6 +2,7 @@ import React from 'react';
 // import { Link } from 'react-router-dom';
 import Axios from 'axios';
 
+
 // import Auth from '../../lib/Auth';
 import GoogleMap from '../google/GoogleMap';
 
@@ -9,41 +10,48 @@ class ArtistsShow extends React.Component {
 
   state = {
     gigs: [],
-    appId: 'gigsTime'
+    appId: 'gigsTime',
+    city: ''
+  }
+
+  setCity = (e) => {
+    this.setState({ city: e.target.value });
   }
 
   componentWillMount() {
-    const artist = this.props.match.params.name;
-    console.log(artist);
-    const artistParam = artist.replace(' ', '%20');
+    const params = this.props.match.params;
     Axios
-      .get(`https://rest.bandsintown.com/artists/${artistParam}/events?app_id=${this.state.appId}`)
-      .then(res => this.setState({gigs: res.data }, () => console.log(this.state.gigs)))
+      .get(`https://rest.bandsintown.com/artists/${params.name}/events`, {
+        params: { app_id: this.state.appId }
+      })
+      .then(res => this.setState({ gigs: res.data }))
       .catch(err => {
-        if(err.response.status === 404) return this.props.history.replace('/404');
+        if(err.response && err.response.status === 404) return this.props.history.replace('/404');
         console.log(err);
       });
   }
 
-  // deleteArtist = () => {
-  //   Axios
-  //     .delete(`/api/artists/${this.props.match.params.id}`)
-  //     .then(() => this.props.history.push('/'));
-  // }
-
   render() {
+    console.log('inside render', this.state.gigs);
+    const cities = Array.from(new Set(this.state.gigs.map(gig => gig.venue.city).sort()));
+    let gigs = '';
+    // filter the gigs
+    if(this.state.city){
+      gigs = this.state.gigs.filter(gig => gig.venue.city === this.state.city );
+    }else
+      gigs = this.state.gigs;
     return (
-      <div >
-        {/* <div>
-          <img src={this.state.artist.image} />
-        </div>
-        <div >
-          <h3>{this.state.artist.title}</h3>
-          <h4>{this.state.artist.category}</h4>
-        </div> */}
+      <div>
         <h1>Show page!</h1>
-        {console.log('before rendering google maps', this.state.gigs)}
-        {this.state.gigs && <GoogleMap gigs={this.state.gigs} />}
+        {this.state.gigs.length && <GoogleMap gigs={gigs} />}
+
+        {/* loop over gigs, display them */}
+        <div>
+          <select onChange={this.setCity} value={this.state.city}>
+            <option key="all" value="">All cities</option>
+            {cities.map(city => <option key={city} value={city}>{city}</option>)}
+          </select>
+        </div>
       </div>
     );
   }

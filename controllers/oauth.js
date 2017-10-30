@@ -10,7 +10,7 @@ function spotify(req, res, next) {
     method: 'POST',
     url: 'https://accounts.spotify.com/api/token',
     form: {
-      redirect_uri: 'http://localhost:8000/',
+      redirect_uri: 'http://localhost:8000/artists',
       grant_type: 'authorization_code',
       client_id: process.env.SPOTIFY_CLIENT_ID,
       client_secret: process.env.SPOTIFY_CLIENT_SECRET,
