@@ -33,7 +33,7 @@ class ArtistsIndex extends React.Component {
             </div>
           );
         })}
-        <OAuthButton provider="spotify">Spotify</OAuthButton>
+        <OAuthButton provider="spotify"><img src="http://marilynscott.com/wp-content/uploads/2016/03/spotify-icon-22.png"></img></OAuthButton>
       </main>
 
     );

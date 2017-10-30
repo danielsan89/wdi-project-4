@@ -20,7 +20,7 @@ class GigsShow extends React.Component {
     return(
       <div>
         <h1>Gig show!</h1>
-        <GoogleMap gig={this.state.gig} />
+        <GoogleMap gigs={[this.state.gig]} />
       </div>
     );
   }
