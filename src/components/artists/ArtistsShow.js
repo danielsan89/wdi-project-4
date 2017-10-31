@@ -63,7 +63,7 @@ class ArtistsShow extends React.Component {
           {gigsByCity.map(gig =>
             <div key={gig.id}>
               <p><strong>Lineup: </strong><small>{gig.lineup.toString()}</small></p>
-              <p><strong>Country: </strong><small>{gig.datetime}</small></p>
+              <p><strong>Date: </strong><small>{gig.datetime}</small></p>
               <p><strong>City: </strong><small>{gig.venue.country}</small></p>
               <p><strong>Venue: </strong><small>{gig.venue.name}</small></p>
               {gig.offers.map(offer => <a key={gig.id} href={offer.url} target="_blank">Buy Tickets</a>)}
