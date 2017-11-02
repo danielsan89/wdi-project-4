@@ -3,6 +3,7 @@ import Axios from 'axios';
 
 import Auth from '../../lib/Auth';
 import GoogleMap from '../google/GoogleMap';
+// import BackButton from '../utility/BackButton';
 
 class GigsIndex extends React.Component {
 
@@ -32,17 +33,22 @@ class GigsIndex extends React.Component {
   render() {
     return(
       <div>
-        <h1>Gig index!</h1>
+        <div>
+          <h1 className="title"> Saved gigs!</h1>
+          {/* <BackButton history={history} ></BackButton> */}
+          <br/>
+        </div>
         {this.state.gigs.length > 0 && <GoogleMap gigs={this.state.gigs} /> }
         {this.state.gigs.map(gig =>
           <div key={gig._id}>
             <hr/>
             {gig.venue && <p>{gig.venue.name}</p>}
             <p>{gig.lineup}</p>
-            <button onClick={() => this.deleteGig(gig)}>Delete</button>
+            <button className="btn btn-danger" onClick={() => this.deleteGig(gig)}>Delete</button>
             <hr/>
           </div>
         )}
+
       </div>
     );
   }

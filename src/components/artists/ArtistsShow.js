@@ -62,7 +62,6 @@ class ArtistsShow extends React.Component {
 
   toggleGig(gig){
     if(this.saved(gig)) return false;
-    console.log('here')
     this.saveGig(gig);
   }
 
