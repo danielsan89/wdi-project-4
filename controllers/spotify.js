@@ -18,7 +18,7 @@ function getFollowing(req, res, next) {
     .then(token => {
       return rp({
         method: 'GET',
-        url: 'https://api.spotify.com/v1/me/following?type=artist',
+        url: 'https://api.spotify.com/v1/me/following?type=artist&limit=50',
         headers: {
           'Authorization': `Bearer ${token.access_token}`
         },

@@ -1,4 +1,6 @@
 class Auth {
+  static currentUser = null;
+
   static setToken(token, refreshToken) {
     localStorage.setItem('refreshToken', refreshToken);
     return localStorage.setItem('token', token);
@@ -10,6 +12,14 @@ class Auth {
 
   static getRefreshToken() {
     return localStorage.getItem('refreshToken');
+  }
+
+  static setCurrentUser(user){
+    this.currentUser = user;
+  }
+
+  static getCurrentUser() {
+    return this.currentUser;
   }
 
   static isAuthenticated() {

@@ -18,10 +18,13 @@ class OAuthButton extends React.Component {
 
     // send the code (and redirectUri) to the API
     Axios.post(this.provider.url, this.getData())
-      .then(res => Auth.setToken(res.data.token, res.data.refreshToken)) // store the token in localStorage (you are now 'logged in')
+      .then(res => {
+        Auth.setToken(res.data.token, res.data.refreshToken);
+        Auth.setCurrentUser(res.data.user);
+      })// store the token in localStorage (you are now 'logged in')
       .then(() => localStorage.removeItem('provider')) // remove the chosen provider from localStorage
       .then(() => history.replace(location.pathname)) // remove the query string from the address bar
-      .then(() => history.push('/artists')); // redirect to the home page
+      .then(() => history.push('/')); // redirect to the home page
   }
 
   getData = () => {
@@ -40,7 +43,6 @@ class OAuthButton extends React.Component {
   render() {
     return (
       <a
-        className="btn btn-primary"
         href={this.provider.authLink}
         onClick={this.setProvider}
       >

@@ -11,9 +11,10 @@ class GoogleMap extends React.Component {
     });
     this.props.gigsByCity.map(gig => {
       const latLng = { lat: Number(gig.venue.latitude), lng: Number(gig.venue.longitude) };
-      const info = `<h4>${gig.venue.city}</h4>`+
-                  `<p><small>${gig.venue.name}</small></p>`+
-                  `<small>${gig.datetime}</small>`;
+      const info = `<p><h4>Artists: </h4><em>${gig.lineup.toString()}</em></p>`+
+                  `<p><h4>City: </h4><em>${gig.venue.city}</em></p>`+
+                  `<p><small><strong>Venue: </strong>${gig.venue.name}</small></p>`+
+                  `<p><small><strong>Date: </strong>${gig.datetime}</small></p>`;
 
       const marker = new google.maps.Marker({
         position: latLng,
@@ -68,7 +69,7 @@ class GoogleMap extends React.Component {
   render() {
     return (
 
-      <div style={{ height: '500px', width: '900px' }} className="google-map" ref={element => this.mapCanvas = element} ></div>
+      <div className="col-md-8 google-map" style={{height: '50vh'}} ref={element => this.mapCanvas = element} ></div>
     );
   }
 }
