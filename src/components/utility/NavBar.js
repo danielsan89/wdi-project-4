@@ -23,14 +23,18 @@ const Navbar = ({ history }) => {
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>
           </button>
-          <a className="navbar-brand" href="#"><span className="glyphicon glyphicon-headphones" aria-hidden="true"></span></a>
         </div>
+        <Link to="/"><a className="navbar-brand" href="#"><span className="glyphicon glyphicon-headphones" aria-hidden="true"></span></a></Link>
         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul className="nav navbar-nav">
             <li>
               {Auth.isAuthenticated() && <Link to="/">home</Link>}
               {!Auth.isAuthenticated() && <Link to="/">home</Link>}
             </li>
+            <li>{Auth.isAuthenticated() && <Link to="/artists">myartists</Link>}</li>
+            <li>{Auth.isAuthenticated() && <Link to="/profile/gigs">mygigs <span className="badge">12</span></Link>}</li>
+          </ul>
+          <ul className="nav navbar-nav navbar-right">
             <li>
               {!Auth.isAuthenticated() && <OAuthButton provider="spotify">
                 login
@@ -38,16 +42,12 @@ const Navbar = ({ history }) => {
               </OAuthButton>}
             </li>
             <li>{Auth.isAuthenticated() && <a href="#" onClick={logout}>logout</a>}</li>
-            <li>{Auth.isAuthenticated() && <Link to="/artists">myartists</Link>}</li>
-            <li>{Auth.isAuthenticated() && <Link to="/profile/gigs">mygigs <span className="badge">12</span></Link>}</li>
-          </ul>
-          <ul className="nav navbar-nav navbar-right">
-            <form className="navbar-form">
+            {/* <form className="navbar-form">
               <div className="form-group">
                 <input type="text" className="form-control" placeholder="Search"/>
               </div>
               <button type="submit" className="btn btn-default">Submit</button>
-            </form>
+            </form> */}
           </ul>
         </div>
       </div>

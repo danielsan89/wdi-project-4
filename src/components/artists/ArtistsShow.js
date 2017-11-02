@@ -10,18 +10,16 @@ class ArtistsShow extends React.Component {
 
   state = {
     gigs: [],
+    gigsSaved: [],
     appId: 'gigsTime',
     city: '',
-    country: ''
+    country: '',
+    active: false
   }
 
-  setCity = (e) => {
-    this.setState({ city: e.target.value });
-  }
   setCountry = (e) => {
     this.setState({ country: e.target.value });
   }
-
 
   componentWillMount() {
     const params = this.props.match.params;
@@ -37,37 +35,41 @@ class ArtistsShow extends React.Component {
         if(err.response && err.response.status === 404) return this.props.history.replace('/404');
         console.log(err);
       });
+    Axios
+      .get('/api/profile/gigs', {
+        headers: { Authorization: `Bearer ${Auth.getToken()}` }
+      })
+      .then(res => this.setState({ gigsSaved: res.data.gigs }, () => console.log(this.state.gigsSaved)))
+      .catch(err => console.log(err));
   }
 
-  // id: { type: String },
-  // lineup: [ String ],
-  // datetime: { type: String },
-  // country: { type: String },
-  // city: { type: String },
-  // venue: { type: String },
-  // latitude: { type: String },
-  // longitude: { type: String }
-
   saveGig(gig) {
-    console.log(gig);
     Axios
-      .post('/api/profile/gigs', { lineup: gig.lineup, venue: {name: gig.venue.name, longitude: gig.venue.longitude, latitude: gig.venue.latitude}, city: gig.venue.city } , {
+      .post('/api/profile/gigs', { id: gig.id, lineup: gig.lineup, venue: {name: gig.venue.name, longitude: gig.venue.longitude, latitude: gig.venue.latitude}, city: gig.venue.city } , {
         headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
       })
-      .then(res => {
-        console.log('RES', res.data);
-        console.log(this.state.gigs);
-      })
+      .then(res => this.setState({ gigsSaved: res.data.gigs }, () => console.log(this.state.gigsSaved)))
       .catch(err => {
         if(err.response && err.response.status === 404) return this.props.history.replace('/404');
         console.log(err);
       });
+
+  }
+
+  saved(gig){
+    return this.state.gigsSaved.find(gigSaved => gig.id === gigSaved.id);
+  }
+
+  toggleGig(gig){
+    if(this.saved(gig)) return false;
+    console.log('here')
+    this.saveGig(gig);
   }
 
 
   render() {
-    const cities = Array.from(new Set(this.state.gigs.map(gig => gig.venue.city).sort()));
-    const gigs = this.state.gigs.filter(gig => gig.venue.city === this.state.city || !this.state.city);
+    const countries = Array.from(new Set(this.state.gigs.map(gig => gig.venue.country).sort()));
+    const gigs = this.state.gigs.filter(gig => gig.venue.country === this.state.country || !this.state.country);
     // const gigsByCountry = this.state.gigs.filter(gig => gig.venue.city === this.state.city || !this.state.city);
     return (
       <div>
@@ -75,10 +77,10 @@ class ArtistsShow extends React.Component {
           {this.state.gigs.length>0 && <GoogleMap gigs={gigs} /> }
           {this.state.gigs.length>0 &&
           <div className="col-md-4">
-            <select className="form-control title" onChange={this.setCity} value={this.state.city} name="filter">
-              <option key="all" value="">All cities</option>
-              {cities.map(city =>
-                <option key={city} value={city}>{city}</option>
+            <select className="form-control title" onChange={this.setCountry} value={this.state.country} name="filter">
+              <option key="all" value="">All countries</option>
+              {countries.map(country =>
+                <option key={country} value={country}>{country}</option>
               )}
             </select>
           </div>}
@@ -92,7 +94,9 @@ class ArtistsShow extends React.Component {
                 <p><strong className="title">Venue : </strong><small>{gig.venue.name}</small></p>
                 {gig.offers.map(offer => <a key={gig.id} href={offer.url} target="_blank">Buy Tickets</a>)}
 
-                <p><a href="#"><span className="glyphicon glyphicon-heart-empty" aria-hidden="true" onClick={() => this.saveGig(gig)}></span></a></p>
+                <p><a href="#"><span className={this.saved(gig) ? 'glyphicon glyphicon-heart': 'glyphicon glyphicon-heart-empty'} aria-hidden="true" onClick={() => {
+                  this.toggleGig(gig);
+                }}></span></a></p>
                 <hr/>
               </div>
             )}

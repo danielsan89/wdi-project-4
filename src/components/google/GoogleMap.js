@@ -10,9 +10,9 @@ class GoogleMap extends React.Component {
     this.infowindow = new google.maps.InfoWindow({
       maxWidth: 100
     });
-    
+
     this.props.gigs
-      .filter(gig => gig.venue && gig.venue.latitude && gig.venue.longitude)
+      // .filter(gig => gig.venue && gig.venue.latitude && gig.venue.longitude)
       .map(gig => {
         const latLng = { lat: Number(gig.venue.latitude), lng: Number(gig.venue.longitude) };
         const info = `<p><h4>Artists: </h4><em>${gig.lineup.toString()}</em></p>`+

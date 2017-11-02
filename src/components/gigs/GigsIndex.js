@@ -25,7 +25,6 @@ class GigsIndex extends React.Component {
       .delete(`/api/profile/gigs/${gig._id}`, {
         headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
       })
-      // .then(() => this.props.history.push('/profile'))
       .then(res => this.setState({ gigs: res.data.gigs }, () => console.log(this.state.gigs)))
       .catch(err => console.log(err));
   }
@@ -37,10 +36,11 @@ class GigsIndex extends React.Component {
         {this.state.gigs.length > 0 && <GoogleMap gigs={this.state.gigs} /> }
         {this.state.gigs.map(gig =>
           <div key={gig._id}>
+            <hr/>
             {gig.venue && <p>{gig.venue.name}</p>}
-            <p>{gig._id}</p>
             <p>{gig.lineup}</p>
             <button onClick={() => this.deleteGig(gig)}>Delete</button>
+            <hr/>
           </div>
         )}
       </div>
