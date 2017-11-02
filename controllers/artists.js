@@ -11,6 +11,7 @@ function artistsIndex(req, res, next) {
 function artistsShow(req, res, next) {
   Artist
     .findById(req.params.id)
+    .populate('gigs')
     .exec()
     .then((artist) => {
       if(!artist) return res.notFound();

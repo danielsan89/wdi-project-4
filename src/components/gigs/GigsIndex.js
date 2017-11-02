@@ -1,9 +1,9 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Axios from 'axios';
 
 import Auth from '../../lib/Auth';
-// import GoogleMap from '../google/GoogleMap';
+import GoogleMap from '../google/GoogleMap';
 
 class GigsShow extends React.Component {
 
@@ -25,9 +25,11 @@ class GigsShow extends React.Component {
     return(
       <div>
         <h1>Gig index!</h1>
+        {this.state.gigs.length>0 && <GoogleMap gigs={this.state.gigs} /> }
         {this.state.gigs.map(gig =>
           <div key={gig.id}>
             <p>{gig.venue}</p>
+            <p>{gig._id}</p>
             <p>{gig.lineup}</p>
           </div>
         )}

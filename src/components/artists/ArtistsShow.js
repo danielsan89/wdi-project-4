@@ -39,14 +39,25 @@ class ArtistsShow extends React.Component {
       });
   }
 
-  toggleFavourite(gig) {
+  // id: { type: String },
+  // lineup: [ String ],
+  // datetime: { type: String },
+  // country: { type: String },
+  // city: { type: String },
+  // venue: { type: String },
+  // latitude: { type: String },
+  // longitude: { type: String }
 
-
+  saveGig(gig) {
+    console.log(gig);
     Axios
-      .post('/api/profile/gigs', { gigs: [ gig ] }, {
+      .post('/api/profile/gigs', { lineup: gig.lineup, venue: gig.venue.name, city: gig.venue.city, latitude: gig.venue.latitude, longitude: gig.venue.longitude  } , {
         headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
       })
-      .then(res => console.log('RES', res.data))
+      .then(res => {
+        console.log('RES', res.data);
+        console.log(this.state.gigs);
+      })
       .catch(err => {
         if(err.response && err.response.status === 404) return this.props.history.replace('/404');
         console.log(err);
@@ -61,7 +72,6 @@ class ArtistsShow extends React.Component {
     return (
       <div>
         <div className="row">
-
           {this.state.gigs.length>0 && <GoogleMap gigsByCity={gigsByCity} gigsByCountry={gigsByCountry} /> }
           {this.state.gigs.length>0 &&
           <div className="col-md-4">
@@ -82,7 +92,7 @@ class ArtistsShow extends React.Component {
                 <p><strong className="title">Venue : </strong><small>{gig.venue.name}</small></p>
                 {gig.offers.map(offer => <a key={gig.id} href={offer.url} target="_blank">Buy Tickets</a>)}
 
-                <p><a href="#"><span className="glyphicon glyphicon-heart-empty" aria-hidden="true" onClick={() => this.toggleFavourite(gig)}></span></a></p>
+                <p><a href="#"><span className="glyphicon glyphicon-heart-empty" aria-hidden="true" onClick={() => this.saveGig(gig)}></span></a></p>
                 <hr/>
               </div>
             )}
