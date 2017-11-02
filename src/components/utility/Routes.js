@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom';
 
 import ArtistsIndex from '../artists/ArtistsIndex';
 import ArtistsShow from '../artists/ArtistsShow';
-import GigsShow from '../gigs/GigsShow';
 import GigsIndex from '../gigs/GigsIndex';
 
 
@@ -14,7 +13,6 @@ const Routes = () => {
       <Route exact path="/artists/:name" component={ArtistsShow} />
 
       <Route exact path="/profile/gigs" component={GigsIndex} />
-      <Route exact path="/profile/gigs/:id" component={GigsShow} />
     </Switch>
   );
 };

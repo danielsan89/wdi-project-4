@@ -1,11 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Axios from 'axios';
 
 import Auth from '../../lib/Auth';
 import GoogleMap from '../google/GoogleMap';
 
-class GigsShow extends React.Component {
+class GigsIndex extends React.Component {
 
   state = {
     gigs: [],
@@ -20,17 +19,28 @@ class GigsShow extends React.Component {
       .then(res => this.setState({ gigs: res.data.gigs }, () => console.log(this.state.gigs)))
       .catch(err => console.log(err));
   }
+  deleteGig = (gig) => {
+    console.log(gig);
+    Axios
+      .delete(`/api/profile/gigs/${gig._id}`, {
+        headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
+      })
+      // .then(() => this.props.history.push('/profile'))
+      .then(res => this.setState({ gigs: res.data.gigs }, () => console.log(this.state.gigs)))
+      .catch(err => console.log(err));
+  }
 
   render() {
     return(
       <div>
         <h1>Gig index!</h1>
-        {this.state.gigs.length>0 && <GoogleMap gigs={this.state.gigs} /> }
+        {this.state.gigs.length > 0 && <GoogleMap gigs={this.state.gigs} /> }
         {this.state.gigs.map(gig =>
-          <div key={gig.id}>
-            <p>{gig.venue}</p>
+          <div key={gig._id}>
+            {gig.venue && <p>{gig.venue.name}</p>}
             <p>{gig._id}</p>
             <p>{gig.lineup}</p>
+            <button onClick={() => this.deleteGig(gig)}>Delete</button>
           </div>
         )}
       </div>
@@ -38,4 +48,4 @@ class GigsShow extends React.Component {
   }
 }
 
-export default GigsShow;
+export default GigsIndex;

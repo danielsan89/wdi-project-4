@@ -34,8 +34,12 @@ router.route('/profile')
 
 router.route('/profile/gigs')
   .get(secureRoute, users.show)
-  .post(secureRoute, users.gigsCreate)
+  .post(secureRoute, users.gigsCreate);
+
+router.route('/profile/gigs/:id')
+  .get(secureRoute, users.show)
   .delete(secureRoute, users.gigsDelete);
+
 
 router.route('/oauth/spotify')
   .post(oauth.spotify);

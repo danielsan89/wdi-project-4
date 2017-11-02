@@ -1,5 +1,3 @@
-const User = require('../models/user');
-
 function usersUpdate(req, res, next) {
   Object.assign(req.currentUser, req.body);
 
@@ -19,14 +17,11 @@ function usersGigsCreate(req, res, next) {
     .catch(next);
 }
 function userGigsDelete(req, res, next) {
-  User
-    .findById(req.params.id)
-    .exec()
-    .then((artist) => {
-      if(!artist) return res.notFound();
-      return artist.remove();
-    })
-    .then(() => res.status(204).end())
+  const gig = req.currentUser.gigs.id(req.params.id);
+  gig.remove();
+
+  return req.currentUser.save()
+    .then(user => res.json(user))
     .catch(next);
 }
 

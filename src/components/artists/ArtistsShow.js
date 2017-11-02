@@ -51,7 +51,7 @@ class ArtistsShow extends React.Component {
   saveGig(gig) {
     console.log(gig);
     Axios
-      .post('/api/profile/gigs', { lineup: gig.lineup, venue: gig.venue.name, city: gig.venue.city, latitude: gig.venue.latitude, longitude: gig.venue.longitude  } , {
+      .post('/api/profile/gigs', { lineup: gig.lineup, venue: {name: gig.venue.name, longitude: gig.venue.longitude, latitude: gig.venue.latitude}, city: gig.venue.city } , {
         headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
       })
       .then(res => {
@@ -67,12 +67,12 @@ class ArtistsShow extends React.Component {
 
   render() {
     const cities = Array.from(new Set(this.state.gigs.map(gig => gig.venue.city).sort()));
-    const gigsByCity = this.state.gigs.filter(gig => gig.venue.city === this.state.city || !this.state.city);
-    const gigsByCountry = this.state.gigs.filter(gig => gig.venue.city === this.state.city || !this.state.city);
+    const gigs = this.state.gigs.filter(gig => gig.venue.city === this.state.city || !this.state.city);
+    // const gigsByCountry = this.state.gigs.filter(gig => gig.venue.city === this.state.city || !this.state.city);
     return (
       <div>
         <div className="row">
-          {this.state.gigs.length>0 && <GoogleMap gigsByCity={gigsByCity} gigsByCountry={gigsByCountry} /> }
+          {this.state.gigs.length>0 && <GoogleMap gigs={gigs} /> }
           {this.state.gigs.length>0 &&
           <div className="col-md-4">
             <select className="form-control title" onChange={this.setCity} value={this.state.city} name="filter">
@@ -83,7 +83,7 @@ class ArtistsShow extends React.Component {
             </select>
           </div>}
           <div className="col-md-4" id="scroll">
-            {gigsByCity.map(gig =>
+            {gigs.map(gig =>
               <div key={gig.id}>
                 <p><strong className="title">Lineup : </strong><small>{gig.lineup.toString()}</small></p>
                 <p><strong className="title">Date : </strong><small>{gig.datetime}</small></p>

@@ -7,9 +7,11 @@ const gigSchema = new mongoose.Schema({
   datetime: { type: String },
   country: { type: String },
   city: { type: String },
-  venue: { type: String },
-  latitude: { type: String },
-  longitude: { type: String }
+  venue: {
+    name: { type: String },
+    longitude: { type: String },
+    latitude: { type: String }
+  }
 });
 
 const userSchema = new mongoose.Schema({
