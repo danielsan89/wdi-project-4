@@ -18,18 +18,37 @@ body{
     }
   }
   main{
-    div#gigIndexGoogleMaps{
-      margin-left: 200px;
-    }
+
     #spotify{
       height: 20px;
       width: 20px;
       margin-left: 2px;
     }
     text-align: center;
-    #scroll{
+    .scroll{
       overflow: scroll;
       height:400px;
+    }
+    div.homePage{
+      background-image: url(http://thenandnowtoronto.com/wp-content/uploads/2014/10/RAMONES-LIVE-87.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      color: white;
+      position: fixed;
+      left: 0;
+      right: 0;
+      height: calc(100vh - 100px);
+      width: 100vw;
+      top: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      div.centered{
+        font-size: 400%;
+        color: #9d9d9d;
+        text-shadow: -1px 0 black, 0 5px black, 1px 0 black, 0 -1px black;
+      }
     }
     .img-responsive {
     margin: 0 auto;
@@ -127,8 +146,12 @@ body{
     position: fixed;
     bottom: 0;
     width: 100%;
+    display: flex;
     div.container{
       color:#9d9d9d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       strong{
         font-family: 'Bungee Inline', cursive;

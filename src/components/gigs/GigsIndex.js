@@ -33,11 +33,11 @@ class GigsIndex extends React.Component {
 
   render() {
     return(
-      <div className="container">
+      <div className="row">
         <div>
           {/* https://bw-1651cf0d2f737d7adeab84d339dbabd3-gallery.s3.amazonaws.com/images/image_502123/file_502123.jpg */}
           {this.state.gigs.length===0 &&
-            <div className="row">
+            <div className="container">
               <img className="img-responsive" src="https://bw-1651cf0d2f737d7adeab84d339dbabd3-gallery.s3.amazonaws.com/images/image_502123/file_502123.jpg"></img>
               {/* <img src="http://78.media.tumblr.com/17e29c9cfb802c1e65a556dcc46545f8/tumblr_orjaxrztTW1u5lqbno1_500.gif"></img> */}
               <h1 className="title">You have no gigs coming up!</h1>
@@ -46,22 +46,23 @@ class GigsIndex extends React.Component {
           <br/>
         </div>
         {this.state.gigs.length > 0 &&
-          <div id="gigsIndexGoogleMap" className="row">
+          <div id="gigsIndexGoogleMap">
             <h1 className="title">Saved gigs!</h1>
             <GoogleMap gigs={this.state.gigs} />
           </div>}
 
-        {this.state.gigs.map(gig =>
-          <div key={gig._id} className="row">
-            <hr/>
-            {gig.venue &&
-            <p><strong>Venue: </strong>{gig.venue.name}</p>}
-            <p><strong>LineUp: </strong>{gig.lineup}</p>
-            <p><strong>Date: </strong><Moment format="MMMM Do YYYY, h:mm a">{gig.datetime}</Moment></p>
-            <button className="btn btn-danger" onClick={() => this.deleteGig(gig)}>Delete</button>
-            <hr/>
-          </div>
-        )}
+        <div className="col-md-4 scroll">
+          {this.state.gigs.map(gig =>
+            <div key={gig.id}>
+              {gig.venue &&
+              <p><strong>Venue: </strong>{gig.venue.name}</p>}
+              <p><strong>LineUp: </strong>{gig.lineup}</p>
+              <p><strong>Date: </strong><Moment format="MMMM Do YYYY, h:mm a">{gig.datetime}</Moment></p>
+              <button className="btn btn-danger" onClick={() => this.deleteGig(gig)}>Delete</button>
+              <hr/>
+            </div>
+          )}
+        </div>
 
       </div>
     );

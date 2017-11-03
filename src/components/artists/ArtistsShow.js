@@ -89,7 +89,7 @@ class ArtistsShow extends React.Component {
               )}
             </select>
           </div>}
-          <div className="col-md-4" id="scroll">
+          <div className="col-md-4 scroll">
             {gigs.map(gig =>
               <div key={gig.id}>
                 <p><strong className="title">Lineup : </strong><small>{gig.lineup.toString()}</small></p>
