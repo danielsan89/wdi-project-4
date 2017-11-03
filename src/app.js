@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Routes from './components/utility/Routes';
 import Navbar from './components/utility/NavBar';
+import Footer from './components/utility/Footer';
 // import Auth from './lib/Auth';
 //
 // import OAuthButton from './components/auth/OAuthButton';
@@ -32,6 +33,9 @@ class App extends React.Component {
             </div> */}
             <Routes/>
           </main>
+
+          <Footer />
+
         </div>
       </Router>
     );

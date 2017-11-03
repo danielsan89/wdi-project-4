@@ -73,6 +73,12 @@ class ArtistsShow extends React.Component {
     return (
       <div>
         <div className="row">
+          {this.state.gigs.length===0 &&
+            <div>
+              <img className="img-responsive" src="http://www.benlevin.net/site_images/blog/NICK_DRUM_ROUGH.gif"></img>
+              {/* <img src="http://78.media.tumblr.com/17e29c9cfb802c1e65a556dcc46545f8/tumblr_orjaxrztTW1u5lqbno1_500.gif"></img> */}
+              <h1 className="title">This artist has no gigs coming up...</h1>
+            </div>}
           {this.state.gigs.length>0 && <GoogleMap gigs={gigs} /> }
           {this.state.gigs.length>0 &&
           <div className="col-md-4">
@@ -101,7 +107,6 @@ class ArtistsShow extends React.Component {
             )}
           </div>
         </div>
-        {this.state.gigs.length===0 && <p>No gigs!</p> }
       </div>
     );
   }
