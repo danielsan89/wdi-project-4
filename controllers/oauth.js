@@ -1,6 +1,6 @@
 const rp = require('request-promise');
 const jwt = require('jsonwebtoken');
-const { secret } = require('../config/environment');
+const { secret, env } = require('../config/environment');
 const User = require('../models/user');
 
 let refreshToken = null;
@@ -10,7 +10,7 @@ function spotify(req, res, next) {
     method: 'POST',
     url: 'https://accounts.spotify.com/api/token',
     form: {
-      redirect_uri: 'http://localhost:8000/',
+      redirect_uri: env === 'production' ? 'https://gigging.herokuapp.com/' : 'http://localhost:8000/',
       grant_type: 'authorization_code',
       client_id: process.env.SPOTIFY_CLIENT_ID,
       client_secret: process.env.SPOTIFY_CLIENT_SECRET,
