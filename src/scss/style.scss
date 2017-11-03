@@ -18,6 +18,9 @@ body{
     }
   }
   main{
+    div#gigIndexGoogleMaps{
+      margin-left: 200px;
+    }
     #spotify{
       height: 20px;
       width: 20px;
@@ -129,7 +132,10 @@ body{
 
       strong{
         font-family: 'Bungee Inline', cursive;
-        padding: 10px;
+        padding-left: 10px;
+      }
+      span{
+        padding-right: 10px;
       }
 
       .nav-icon{

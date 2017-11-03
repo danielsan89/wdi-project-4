@@ -1,5 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
+import Moment from 'react-moment';
 
 import Auth from '../../lib/Auth';
 import GoogleMap from '../google/GoogleMap';
@@ -32,7 +33,7 @@ class GigsIndex extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className="container">
         <div>
           {/* https://bw-1651cf0d2f737d7adeab84d339dbabd3-gallery.s3.amazonaws.com/images/image_502123/file_502123.jpg */}
           {this.state.gigs.length===0 &&
@@ -45,16 +46,18 @@ class GigsIndex extends React.Component {
           <br/>
         </div>
         {this.state.gigs.length > 0 &&
-          <div>
+          <div id="gigsIndexGoogleMap" className="row">
             <h1 className="title">Saved gigs!</h1>
             <GoogleMap gigs={this.state.gigs} />
           </div>}
 
         {this.state.gigs.map(gig =>
-          <div key={gig._id}>
+          <div key={gig._id} className="row">
             <hr/>
-            {gig.venue && <p>{gig.venue.name}</p>}
-            <p>{gig.lineup}</p>
+            {gig.venue &&
+            <p><strong>Venue: </strong>{gig.venue.name}</p>}
+            <p><strong>LineUp: </strong>{gig.lineup}</p>
+            <p><strong>Date: </strong><Moment format="MMMM Do YYYY, h:mm a">{gig.datetime}</Moment></p>
             <button className="btn btn-danger" onClick={() => this.deleteGig(gig)}>Delete</button>
             <hr/>
           </div>

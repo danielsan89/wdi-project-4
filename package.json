@@ -16,15 +16,17 @@
   },
   "dependencies": {
     "body-parser": "^1.18.1",
+    "bootstrap-css-only": "^3.3.7",
     "express": "^4.15.4",
     "jsonwebtoken": "^8.1.0",
+    "moment": "^2.19.1",
     "mongoose": "^4.11.12",
     "mongoose-unique-validator": "^1.0.6",
-    "bootstrap-css-only": "^3.3.7",
     "morgan": "^1.8.2",
     "query-string": "^5.0.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-moment": "^0.6.5",
     "react-router-dom": "^4.2.2",
     "request-promise": "^4.2.2"
   },

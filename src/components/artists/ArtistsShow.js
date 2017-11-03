@@ -1,7 +1,7 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
 import Axios from 'axios';
-
+import Moment from 'react-moment';
 
 import Auth from '../../lib/Auth';
 import GoogleMap from '../google/GoogleMap';
@@ -45,7 +45,7 @@ class ArtistsShow extends React.Component {
 
   saveGig(gig) {
     Axios
-      .post('/api/profile/gigs', { id: gig.id, lineup: gig.lineup, venue: {name: gig.venue.name, longitude: gig.venue.longitude, latitude: gig.venue.latitude}, city: gig.venue.city } , {
+      .post('/api/profile/gigs', { id: gig.id, lineup: gig.lineup, venue: {name: gig.venue.name, longitude: gig.venue.longitude, latitude: gig.venue.latitude}, city: gig.venue.city, datetime: gig.datetime } , {
         headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
       })
       .then(res => this.setState({ gigsSaved: res.data.gigs }, () => console.log(this.state.gigsSaved)))
@@ -93,7 +93,7 @@ class ArtistsShow extends React.Component {
             {gigs.map(gig =>
               <div key={gig.id}>
                 <p><strong className="title">Lineup : </strong><small>{gig.lineup.toString()}</small></p>
-                <p><strong className="title">Date : </strong><small>{gig.datetime}</small></p>
+                <p><strong className="title">Date : </strong><small><Moment format="MMMM Do YYYY, h:mm a">{gig.datetime}</Moment></small></p>
                 <p><strong className="title">Country : </strong><small>{gig.venue.country}</small></p>
                 <p><strong className="title">City : </strong><small>{gig.venue.city}</small></p>
                 <p><strong className="title">Venue : </strong><small>{gig.venue.name}</small></p>
