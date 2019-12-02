@@ -1,7 +1,7 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
 import Axios from 'axios';
-import Moment from 'react-moment';
+// import Moment from 'react-moment';
 
 import Auth from '../../lib/Auth';
 import GoogleMap from '../google/GoogleMap';
@@ -11,7 +11,7 @@ class ArtistsShow extends React.Component {
   state = {
     gigs: [],
     gigsSaved: [],
-    appId: 'gigsTime',
+    appId: 'e00e7701bd747c53beec09c4d2d63bba',
     city: '',
     country: '',
     active: false
@@ -53,7 +53,6 @@ class ArtistsShow extends React.Component {
         if(err.response && err.response.status === 404) return this.props.history.replace('/404');
         console.log(err);
       });
-
   }
 
   saved(gig){
@@ -93,11 +92,11 @@ class ArtistsShow extends React.Component {
             {gigs.map(gig =>
               <div key={gig.id}>
                 <p><strong className="title">Lineup : </strong><small>{gig.lineup.toString()}</small></p>
-                <p><strong className="title">Date : </strong><small><Moment format="MMMM Do YYYY, h:mm a">{gig.datetime}</Moment></small></p>
+                {/*<p><strong className="title">Date : </strong><small><Moment format="MMMM Do YYYY, h:mm a">{gig.datetime}</Moment></small></p>*/}
                 <p><strong className="title">Country : </strong><small>{gig.venue.country}</small></p>
                 <p><strong className="title">City : </strong><small>{gig.venue.city}</small></p>
                 <p><strong className="title">Venue : </strong><small>{gig.venue.name}</small></p>
-                {gig.offers.map(offer => <a key={gig.id} href={offer.url} target="_blank">Buy Tickets</a>)}
+                {gig.offers.map((offer, index) => <a key={index} href={offer.url} target="_blank">Buy Tickets</a>)}
 
                 <p><a href="#"><span className={this.saved(gig) ? 'glyphicon glyphicon-heart': 'glyphicon glyphicon-heart-empty'} aria-hidden="true" onClick={() => {
                   this.toggleGig(gig);

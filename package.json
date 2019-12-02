@@ -1,7 +1,7 @@
 {
-  "name": "react-webpack-setup",
+  "name": "gigging",
   "version": "1.0.0",
-  "description": "A React and Webpack setup for WDI",
+  "description": "Proyecto final Desarrollo Aplicaciones Web",
   "main": "server.js",
   "license": "MIT",
   "scripts": {
@@ -28,6 +28,7 @@
     "react-dom": "^15.6.1",
     "react-moment": "^0.6.5",
     "react-router-dom": "^4.2.2",
+    "react-select": "^3.0.8",
     "request-promise": "^4.2.2"
   },
   "devDependencies": {

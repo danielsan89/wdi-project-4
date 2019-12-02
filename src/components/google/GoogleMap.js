@@ -1,7 +1,6 @@
 /* global google */
 // import Moment from 'react-moment';
 import React from 'react';
-// import mapStyles from '../config/mapStyles';
 
 class GoogleMap extends React.Component {
 
@@ -11,24 +10,17 @@ class GoogleMap extends React.Component {
       maxWidth: 100
     });
 
-    // `<p><h4>Artists: </h4><em>${gig.lineup.toString()}</em></p>`+
-    //             `<p><h4>City: </h4><em>${gig.venue.city}</em></p>`+
-    //             `<p><small><strong>Venue: </strong>${gig.venue.name}</small></p>`+
-    //             `<p><small><strong>Date: </strong>${gig.datetime}</small></p>`;
-
     this.props.gigs
-      // .filter(gig => gig.venue && gig.venue.latitude && gig.venue.longitude)
       .map(gig => {
         const latLng = { lat: Number(gig.venue.latitude), lng: Number(gig.venue.longitude) };
         const info =  `<p><h4>Artists: </h4><em>${gig.lineup.toString()}</em></p>`+
                       `<p><h4>City: </h4><em>${gig.venue.city}</em></p>`+
                       `<p><small><strong>Venue: </strong>${gig.venue.name}</small></p>`;
-          // `<p><small><strong>Date: </strong>${<Moment format="MMMM Do YYYY, h:mm a">{gig.datetime}</Moment>}</small></p>`;
+                      //`<p><small><strong>Date: </strong>${<Moment format="MMMM Do YYYY, h:mm a">{gig.datetime}</Moment>}</small></p>`;
 
         const marker = new google.maps.Marker({
           position: latLng,
           map: this.map
-          // styles: mapStyles
         });
 
         marker.addListener('click', () => {
@@ -58,7 +50,6 @@ class GoogleMap extends React.Component {
   }
 
   componentDidMount(){
-    console.log('mounted google map');
     this.bounds = new google.maps.LatLngBounds();
     this.markers = [];
     this.map = new google.maps.Map(this.mapCanvas, {
