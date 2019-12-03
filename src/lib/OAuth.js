@@ -14,7 +14,6 @@ class OAuth {
 
   // method to generate the correct href for the oAuth popup, based on the current URL in the address bar
   static getAuthLink(provider) {
-    console.log(window.location.href);
     const qs = {
       scope: provider.scope,
       client_id: provider.clientId,

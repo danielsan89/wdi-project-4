@@ -5,7 +5,6 @@ import React from 'react';
 class GoogleMap extends React.Component {
 
   createMarkers(){
-    console.log(this.props.gigs);
     this.infowindow = new google.maps.InfoWindow({
       maxWidth: 100
     });

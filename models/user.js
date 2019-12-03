@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-// const bcrypt = require('bcrypt');
 
 const gigSchema = new mongoose.Schema({
   id: { type: String },
@@ -11,7 +10,8 @@ const gigSchema = new mongoose.Schema({
     name: { type: String },
     longitude: { type: String },
     latitude: { type: String }
-  }
+  },
+  tickets: { type: String } 
 });
 
 const userSchema = new mongoose.Schema({

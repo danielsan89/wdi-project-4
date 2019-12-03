@@ -1,9 +1,12 @@
 {
   "name": "gigging",
   "version": "1.0.0",
-  "description": "Proyecto final Desarrollo Aplicaciones Web",
+  "description": "A react app for tracking gigs",
   "main": "server.js",
   "license": "MIT",
+  "engines": {
+    "node": "8.3.0"
+  },
   "scripts": {
     "start": "yarn build && node index",
     "start:client": "webpack-dev-server",
@@ -28,7 +31,6 @@
     "react-dom": "^15.6.1",
     "react-moment": "^0.6.5",
     "react-router-dom": "^4.2.2",
-    "react-select": "^3.0.8",
     "request-promise": "^4.2.2"
   },
   "devDependencies": {

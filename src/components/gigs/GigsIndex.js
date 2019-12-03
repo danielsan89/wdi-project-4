@@ -1,16 +1,14 @@
 import React from 'react';
 import Axios from 'axios';
-// import Moment from 'react-moment';
-
+import Moment from 'react-moment';
 import Auth from '../../lib/Auth';
 import GoogleMap from '../google/GoogleMap';
-// import BackButton from '../utility/BackButton';
 
 class GigsIndex extends React.Component {
 
   state = {
-    gigs: [],
-    appId: 'gigsTime'
+    savedGigs: [],
+    appId: 'e00e7701bd747c53beec09c4d2d63bba'
   }
 
   componentDidMount() {
@@ -18,52 +16,54 @@ class GigsIndex extends React.Component {
       .get('/api/profile/gigs', {
         headers: { Authorization: `Bearer ${Auth.getToken()}` }
       })
-      .then(res => this.setState({ gigs: res.data.gigs }, () => console.log(this.state.gigs)))
+      .then(res => this.setState({ savedGigs: res.data.gigs }, () => console.log(this.state.savedGigs)))
       .catch(err => console.log(err));
   }
   deleteGig = (gig) => {
-    console.log(gig);
     Axios
       .delete(`/api/profile/gigs/${gig._id}`, {
         headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
       })
-      .then(res => this.setState({ gigs: res.data.gigs }, () => console.log(this.state.gigs)))
+      .then(res => this.setState({ savedGigs: res.data.gigs }, () => console.log(this.state.savedGigs)))
       .catch(err => console.log(err));
   }
 
   render() {
-    return(
-      <div className="row">
-        <div>
-          {this.state.gigs.length===0 &&
-            <div className="container">
-              <img className="img-responsive" src="https://bw-1651cf0d2f737d7adeab84d339dbabd3-gallery.s3.amazonaws.com/images/image_502123/file_502123.jpg"></img>
-              <h1 className="title">You have no gigs coming up!</h1>
-            </div>}
-          {/* <BackButton history={history} ></BackButton> */}
-          <br/>
-        </div>
-        {this.state.gigs.length > 0 &&
+    if (this.state.savedGigs.length){
+      return(
+        <div className="row">
           <div id="gigsIndexGoogleMap">
             <h1 className="title">Saved gigs!</h1>
-            <GoogleMap gigs={this.state.gigs} />
-          </div>}
-
-        <div className="col-md-4 scroll">
-          {this.state.gigs.map(gig =>
-            <div key={gig.id}>
-              {gig.venue &&
-              <p><strong>Venue: </strong>{gig.venue.name}</p>}
-              <p><strong>LineUp: </strong>{gig.lineup}</p>
-              {/*<p><strong>Date: </strong><Moment format="MMMM Do YYYY, h:mm a">{gig.datetime}</Moment></p>*/}
-              <button className="btn btn-danger" onClick={() => this.deleteGig(gig)}>Delete</button>
-              <hr/>
-            </div>
-          )}
+            <GoogleMap gigs={this.state.savedGigs} />
+          </div>
+          <div className="col-md-4 scroll">
+            {this.state.savedGigs.map(gig =>
+              <div key={gig.id}>
+                <p><strong className="title">Lineup : </strong><small>{gig.lineup.toString()}</small></p>
+                <p><strong className="title">Date : </strong><small><Moment format="MMMM Do YYYY, h:mm a">{gig.datetime}</Moment></small></p>
+                <p><strong className="title">Country : </strong><small>{gig.country}</small></p>
+                <p><strong className="title">City : </strong><small>{gig.city}</small></p>
+                <p><strong className="title">Venue : </strong><small>{gig.venue.name}</small></p>
+                {gig.tickets ?
+                  <p><a href={gig.tickets} target="_blank">Buy Tickets</a></p>
+                  :
+                  <p><strong className="title">SOLD OUT!</strong></p>}
+                <button className="btn btn-danger" onClick={() => this.deleteGig(gig)}>Delete</button>
+                <hr />
+              </div>
+            )}
+          </div>
         </div>
-
-      </div>
-    );
+    )} else {
+      return (
+        <div className="row">
+          <div className="container">
+            <img className="img-responsive" src="../../assets/userNoGigs.jpg"></img>
+            <h1 className="title">You have no gigs coming up!</h1>
+          </div>
+        </div>
+      )
+    }
   }
 }
 
