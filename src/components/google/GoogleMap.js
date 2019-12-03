@@ -1,5 +1,5 @@
 /* global google */
-// import Moment from 'react-moment';
+import Moment from 'react-moment';
 import React from 'react';
 
 class GoogleMap extends React.Component {
@@ -14,8 +14,8 @@ class GoogleMap extends React.Component {
         const latLng = { lat: Number(gig.venue.latitude), lng: Number(gig.venue.longitude) };
         const info =  `<p><h4>Artists: </h4><em>${gig.lineup.toString()}</em></p>`+
                       `<p><h4>City: </h4><em>${gig.venue.city}</em></p>`+
-                      `<p><small><strong>Venue: </strong>${gig.venue.name}</small></p>`;
-                      //`<p><small><strong>Date: </strong>${<Moment format="MMMM Do YYYY, h:mm a">{gig.datetime}</Moment>}</small></p>`;
+                      `<p><small><strong>Venue: </strong>${gig.venue.name}</small></p>`+
+                      `<p><small><strong>Date: </strong><Moment format="MMMM Do YYYY, h:mm a">${gig.datetime}</Moment></small></p>`;
 
         const marker = new google.maps.Marker({
           position: latLng,

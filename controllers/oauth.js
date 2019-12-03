@@ -22,7 +22,6 @@ function spotify(req, res, next) {
     json: true
   })
     .then(token => {
-      console.log(token);
       refreshToken = token.refresh_token;
 
       return rp({
@@ -35,7 +34,6 @@ function spotify(req, res, next) {
       });
     })
     .then(profile => {
-      console.log(profile);
       return User
         .findOne({ $or: [{ spotifyId: profile.id }, { email: profile.email }] })
         .then((user) => {
@@ -53,7 +51,7 @@ function spotify(req, res, next) {
     })
     .then(user => {
       const payload = { userId: user.id };
-      const token = jwt.sign(payload, secret, { expiresIn: '1hr' });
+      const token = jwt.sign(payload, secret, { expiresIn: '24hr' });
 
       res.json({ message: `Welcome ${user.username}!`, token, refreshToken, user });
     })

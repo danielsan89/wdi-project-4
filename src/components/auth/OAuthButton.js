@@ -11,7 +11,6 @@ class OAuthButton extends React.Component {
     const { provider, location, history } = this.props;
     // get the full provider data from `OAuth` class
     this.provider = OAuth.getProvider(provider);
-    console.log(provider);
 
     // if there's no code in the address bar OR the provider does not match that in localStorage, stop here.
     if(!location.search.match(/code/) || localStorage.getItem('provider') !== provider) return false;

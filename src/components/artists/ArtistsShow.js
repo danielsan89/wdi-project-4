@@ -78,12 +78,12 @@ class ArtistsShow extends React.Component {
     if (this.state.artistGigs.length){
       return (
         <div className="row">
-          <GoogleMap gigs={this.state.artistGigs} />
+          <GoogleMap gigs={gigs} />
           <div className="col-md-4">
             <select className="form-control title" onChange={this.setCountry} value={this.state.country} name="filter">
               <option key="all" value="">All countries</option>
-              {countries.map(country =>
-                <option key={country} value={country}>{country}</option>
+              {countries.map((country, index) =>
+                <option key={index} value={country}>{country}</option>
               )}
             </select>
           </div>

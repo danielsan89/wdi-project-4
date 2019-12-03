@@ -13,7 +13,12 @@ body{
     }
   }
   main{
-
+    select {
+      text-align: center;
+      text-align-last: center;
+      /* webkit*/
+    }
+    
     #spotify {
       height: 20px;
       width: 20px;
@@ -46,6 +51,9 @@ body{
         color: #9d9d9d;
         text-shadow: -1px 0 black, 0 5px black, 1px 0 black, 0 -1px black;
       }
+    }
+    .row {
+      margin-bottom: 10px;
     }
     .img-responsive {
     margin: 0 auto;
