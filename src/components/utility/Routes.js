@@ -14,7 +14,6 @@ const Routes = () => {
       <Route exact path="/" component={HomePage}/>
       <ProtectedRoute exact path="/artists" component={ArtistsIndex} />
       <ProtectedRoute exact path="/artists/:name" component={ArtistsShow} />
-
       <ProtectedRoute exact path="/profile/gigs" component={GigsIndex} />
     </Switch>
   );
