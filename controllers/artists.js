@@ -16,7 +16,6 @@ function artistsShow(req, res, next) {
     .then((artist) => {
       if(!artist) return res.notFound();
       res.json(artist);
-      console.log(artist);
     })
     .catch((err) => {
       console.log('ERROR IN CATCH ===========>', err);

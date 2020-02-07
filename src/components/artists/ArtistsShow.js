@@ -33,7 +33,6 @@ class ArtistsShow extends React.Component {
         params: { app_id: this.state.appId }
       })
       .then(res => this.setState({ artistGigs: res.data }))
-      .then(() => console.log(this.state.artistGigs))
       .catch(err => {
         if (err.response && err.response.status === 404) return this.props.history.replace('/404');
         console.log(err);
@@ -54,7 +53,7 @@ class ArtistsShow extends React.Component {
       .post('/api/profile/gigs', { id: gig.id, lineup: gig.lineup, venue: {name: gig.venue.name, longitude: gig.venue.longitude, latitude: gig.venue.latitude}, city: gig.venue.city, country: gig.venue.country, datetime: gig.datetime, tickets: gig.offers[0] ? gig.offers[0].url : '' } , {
         headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
       })
-      .then(res => this.setState({ savedGigs: res.data.gigs }, () => console.log(this.state.savedGigs)))
+      .then(res => this.setState({ savedGigs: res.data.gigs }))
       .catch(err => {
         if(err.response && err.response.status === 404) return this.props.history.replace('/404');
         console.log(err);

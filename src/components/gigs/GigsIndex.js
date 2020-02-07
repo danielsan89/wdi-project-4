@@ -16,7 +16,7 @@ class GigsIndex extends React.Component {
       .get('/api/profile/gigs', {
         headers: { Authorization: `Bearer ${Auth.getToken()}` }
       })
-      .then(res => this.setState({ savedGigs: res.data.gigs }, () => console.log(this.state.savedGigs)))
+      .then(res => this.setState({ savedGigs: res.data.gigs }))
       .catch(err => console.log(err));
   }
   deleteGig = (gig) => {
@@ -24,7 +24,7 @@ class GigsIndex extends React.Component {
       .delete(`/api/profile/gigs/${gig._id}`, {
         headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
       })
-      .then(res => this.setState({ savedGigs: res.data.gigs }, () => console.log(this.state.savedGigs)))
+      .then(res => this.setState({ savedGigs: res.data.gigs }))
       .catch(err => console.log(err));
   }
 
