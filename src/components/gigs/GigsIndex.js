@@ -3,13 +3,14 @@ import Axios from 'axios';
 import Moment from 'react-moment';
 import Auth from '../../lib/Auth';
 import GoogleMap from '../google/GoogleMap';
+import env from '../../../config/environment';
 
 class GigsIndex extends React.Component {
 
   state = {
     savedGigs: [],
-    appId: 'e00e7701bd747c53beec09c4d2d63bba'
-  }
+    appId: env.bandsInTownAppId
+    }
 
   componentDidMount() {
     Axios
@@ -32,11 +33,11 @@ class GigsIndex extends React.Component {
     if (this.state.savedGigs.length){
       return(
         <div className="row">
-          <div id="gigsIndexGoogleMap">
+          <div id="gigsIndexGoogleMap google-map">
             <h1 className="title">Saved gigs!</h1>
             <GoogleMap gigs={this.state.savedGigs} />
           </div>
-          <div className="col-md-4 scroll">
+          <div className="col-md-4 scroll show-list">
             {this.state.savedGigs.map(gig =>
               <div key={gig.id}>
                 <p><strong className="title">Lineup : </strong><small>{gig.lineup.toString()}</small></p>

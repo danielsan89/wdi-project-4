@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Auth from '../../lib/Auth';
 
 
+
 class ArtistsIndex extends React.Component {
   constructor(props) {
     super(props)
@@ -64,7 +65,6 @@ class ArtistsIndex extends React.Component {
         </div>
         <div className="row">
           {artists.map(artist => {
-            console.log(artist)
             const artistLength = artists.length;
             const cols = artistLength > 12 ? 'col-md-3' : 'col-md-' + 12 / artistLength
             return (

@@ -23,28 +23,10 @@ function artistsShow(req, res, next) {
     });
 }
 
-function artistsCreate(req, res, next) {
-  Artist
-    .create(req.body)
-    .then(artist => res.status(201).json(artist))
-    .catch(next);
-}
 
-function artistsDelete(req, res, next) {
-  Artist
-    .findById(req.params.id)
-    .exec()
-    .then((artist) => {
-      if(!artist) return res.notFound();
-      return artist.remove();
-    })
-    .then(() => res.status(204).end())
-    .catch(next);
-}
+
 
 module.exports={
   index: artistsIndex,
-  show: artistsShow,
-  create: artistsCreate,
-  delete: artistsDelete
+  show: artistsShow
 };

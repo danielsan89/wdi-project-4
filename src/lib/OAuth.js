@@ -1,18 +1,15 @@
 import queryString from 'query-string';
+import env from '../../config/environment';
 
 class OAuth {
-  // create a settings object for each of the providers you wish to support
-  // tip: you can lift this almost directly from the satellizer docs: https://github.com/sahat/satellizer#configuration
   static providers = [{
     name: 'spotify',
     url: '/api/oauth/spotify',
     authEndpoint: 'https://accounts.spotify.com/authorize',
     scope: ['user-read-private user-read-email user-follow-read user-follow-modify playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private user-modify-playback-state'],
-    clientId: 'be0c644bd7d943b5a8727fd2c6df7883' // paste your Client ID here
+    clientId: env.spotifyAppId
   }];
 
-
-  // method to generate the correct href for the oAuth popup, based on the current URL in the address bar
   static getAuthLink(provider) {
     const qs = {
       scope: provider.scope,

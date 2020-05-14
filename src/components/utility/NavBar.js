@@ -39,7 +39,6 @@ class Navbar extends React.Component {
               </li>
               <li>{Auth.isAuthenticated() && <Link to="/artists">myartists</Link>}</li>
               <li>{Auth.isAuthenticated() && <Link to="/profile/gigs">mygigs</Link>}</li>
-              {/*<li>{Auth.isAuthenticated() && <Link to="/profile/gigs">mygigs <span className="badge">{this.props.savedGigs.length}</span></Link>}</li>*/}
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li>

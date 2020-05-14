@@ -14,5 +14,4 @@ const ProtectedRoute = ({ component: Component, ...other }) => {
   );
 };
 
-
 export default withRouter(ProtectedRoute);

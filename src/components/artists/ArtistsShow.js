@@ -4,13 +4,14 @@ import Axios from 'axios';
 import Moment from 'react-moment';
 import Auth from '../../lib/Auth';
 import GoogleMap from '../google/GoogleMap';
+import env from '../../../config/environment';
 
 class ArtistsShow extends React.Component {
 
   state = {
     artistGigs: [],
     savedGigs: [],
-    appId: 'e00e7701bd747c53beec09c4d2d63bba',
+    appId: env.bandsInTownAppId,
     city: '',
     country: '',
     active: false

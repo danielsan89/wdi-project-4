@@ -1,13 +1,7 @@
 import React from 'react';
 
 const Footer = () => {
-
   return(
-    // <nav className="navbar fixed-bottom navbar-light bg-light">
-    //   <div className="container">
-    //     <a className="navbar-brand" href="#">Sticky top</a>
-    //   </div>
-    // </nav>
     <footer className="navbar navbar-inverse navbar-fixed-bottom">
       <div className="container">
         <strong>Gigging!</strong><span>&copy;</span>
