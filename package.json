@@ -51,7 +51,7 @@
     "html-webpack-plugin": "^2.29.0",
     "jsdom": "^11.3.0",
     "mocha": "^3.3.0",
-    "node-sass": "^4.5.3",
+    "node-sass": "^4.13.1",
     "react-bootstrap": "^0.31.5",
     "react-test-renderer": "15",
     "sass-loader": "^6.0.6",
